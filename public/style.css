@@ -1,0 +1,224 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Sora:wght@100..800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins';
+    flex-wrap: wrap;
+}
+
+body{
+    min-height: 100%;
+}
+
+.hTop{
+    background-color: #1e1e2e;
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    height: 6rem;
+    justify-content: center;
+    align-items: center;
+}
+
+.navigation{
+    display: flex;
+    flex-direction: row;
+    width: 90%;
+    height: 100%;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logoxd{
+    height: 100%;
+    width: 7rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-decoration: none;
+}
+.logo{
+    height: 100%;
+    width: 7rem;
+    background-image: url('images/discordLogo.png');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.btn-xd{
+    padding: 1rem 2rem;
+    background-color: #1e1e2e;
+    border: none;
+    color: #f0f0f1;
+    border-radius: 2rem;
+    font-family: 'Montserrat';
+    font-weight: 500;
+    font-size: 1rem;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+}
+
+.btn-xd::before{
+    content: '';
+    position: absolute;
+    height: 110%;
+    width: 110%;
+    border-radius: 2rem;
+    background-image: linear-gradient(to bottom right, #74c7ec, #e100ff);
+    z-index: -1;
+
+}
+
+.listing{
+    list-style: none;
+    display: flex;
+    flex-direction: row;
+
+}
+
+.listing a{
+    text-decoration: none;
+}
+.main{
+    display: flex;
+    flex-direction: row;
+    min-height: 100%;
+    width: 100%;
+}
+
+.left{
+    width: 20%;
+    height: 100vh;
+    background-color: #babbf1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+}
+
+.right{
+    width: 80%;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.ima{
+    background-image: url('public/casi.png');
+    background-repeat: no-repeat;
+    background-size: contain;
+    width: 15rem;
+    height: 15rem;
+    
+}
+
+.formulario{
+    width: 50rem;
+    height: 25rem;
+    background-color: #737994;
+    box-shadow: 0 1.5rem 3rem  -0.75rem #1e1e2e28;
+    display: flex;
+    border-radius: .5rem;
+    overflow: hidden;
+}
+
+.in{
+    width: 100%;
+    padding: .5rem;
+    outline: none;
+    border-radius: .25rem;
+    border: .12rem solid #f1f1f1a1;
+    background-color: #737994;
+    color: #cdd6f4;
+    font-size: 1.5rem;
+    transition: .5s ease;
+}
+
+.bluelabel{
+    position: absolute;
+    left: 0;
+    padding: .5rem;
+    padding-left: 1rem;
+    pointer-events: none;
+    font-size: 1.5rem;
+    color: #f1f1f1a1;
+    transition: .5s ease;
+}
+
+.login{
+    width: 75%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 2rem;
+    gap: .5rem;
+}
+
+#sliding{
+    width: 25%;
+    height: 100%;
+    background-image: url('public/sliding1.jpg');
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    transition: all .3s ease;
+}
+
+.inputBox{
+    position: relative;
+    width: 70%;
+    margin: .2rem;
+}
+
+.in:valid ~ .bluelabel,
+.in:focus ~ .bluelabel{
+    color: #74c7ec;
+    transform: translateX(10px) translateY(-7px);
+    font-size: 1rem;
+    padding: 0 1rem;
+    letter-spacing: .2rem;
+    background-color: #74c7ec;
+    color: #1e1e2e;
+}
+
+.in:valid,
+.in:focus{
+    border: .12rem solid #74c7ec;
+}
+
+.submit{
+    padding: .5rem;
+    width: 20%;
+    font-size: 1rem;
+    border-radius: 1rem;
+    border: .1rem solid #74c7ec;
+    background-color: #737994;
+    cursor: pointer;
+    font-weight: 500;
+    transition: all ease-in-out .5s;
+}
+
+.submit:hover{
+    background-color: #74c7ec;
+    border-radius: 2rem;
+    color: #1e1e2e;
+}
+
+.avatar{
+    width: 30%;
+    height: 30%;
+    background-image: url('images/avatar1.png');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+}
