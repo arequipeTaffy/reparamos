@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Subir productos</title>
+        <script src="https://cdn.tailwindcss.com"></script>
+        <link rel="stylesheet" href="estilos.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    </head>
+<body>
+    <div class="navbar w-full  h-[10vh] px-[30px] flex items-center justify-between">
+        <div class="text-3xl font-bold">REPARAMOS TECNOLOGIA</div>
+        <div class="flex w-[50%] items-center justify-around navbar relative">
+            <div class=" hover:bg-gray-300 transition rounded px-[10px] py-[5px]"><a href="/">Inicio</a></div>
+            <div class=" hover:bg-gray-300 transition rounded px-[10px] py-[5px]"><a href="/productos">Productos Y Servicios</a></div>
+            <div class=" hover:bg-gray-300 transition rounded px-[10px] py-[5px]"><a href="./miperfil.html">Mi perfil</a></div>
+            <a href="">
+                <div class="bg-black text-white rounded px-[10px] py-[5px]">INICIAR</div>
+            </a>
+        </div>
+    </div>
+
+
+    <div class="h-[90vh] w-screen flex items-center justify-center">
+        <form class="flex items-between justify-center flex-col gap-8" method="post" action="/product" enctype="multipart/form-data">
+            <label for="" class="text-[5vw]">Subir productos</label>
+            <input type="text" name="pname" id="" placeholder="Nombre" class="h-[40px] rounded border p-2 outline-none hover:ring" required>
+            <input type="number" name="price" placeholder="Precio" id="" class="h-[40px] rounded border p-2 outline-none hover:ring" required>
+            <input type="text" name="description" id="" placeholder="Descripcion" class="h-[40px] rounded border p-2 outline-none hover:ring" required>
+            <input type="file" name="image" id="" class="text-gray-500 file:px-4 file:py-2 file:rounded file:border-none file:text-sm
+            file:font-semibold file:bg-slate-800 file:cursor-pointer file:border-black file:text-white"
+            accept="image/*">
+            <input type="submit" value="Subir el producto" class="bg-black rounded p-2 relative text-2xl text-[white] hover:text-2xl hover:ring cursor-pointer">
+        </form>
+    </div>
+
+
+</body>
+</html>

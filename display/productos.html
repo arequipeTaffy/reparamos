@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Productos</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="estilos.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+<body>
+    <div class="navbar w-full  h-[10vh] px-[30px] flex items-center justify-between">
+        <div class="text-3xl font-bold">REPARAMOS TECNOLOGIA</div>
+        <div class="flex w-[50%] items-center justify-around navbar relative" >
+            <div class=" hover:bg-gray-300 transition rounded px-[10px] py-[5px]"><a href="/">Inicio</a></div>
+            <div class=" hover:bg-gray-300 transition rounded px-[10px] py-[5px] "><a href="/">Contacto</a></div>
+            <div class=" hover:bg-gray-300 transition rounded px-[10px] py-[5px]"><a href="">Mi perfil</a></div>
+            <a href="/login">
+                <div class="bg-black text-white rounded px-[10px] py-[5px]">INICIAR</div>
+            </a>
+        </div>
+    </div>
+
+
+    <script src="scripts/navbar.js"></script>
+    
+    <div class="flex  flex items-center justify-between h-[90vh]">
+
+
+        <section class="flex justify-left items-center flex-wrap px-[50px] py-[50px] gap-[30px] w-[70%] h-[100%] overflow-y-auto">
+            <% products.forEach(product => { %>
+                <div data-precio="<%= product.price %>" data-name="<%= product.product_name %>" 
+                class="h-[400px] flex items-center flex-col justify-center border w-[250px] rounded sys">
+                    <div class="bg-cover bg-top w-[100%] h-[100%]" style="background-image: url('<%= product.image %>');"></div>
+                    <div class="border w-[100%] h-[100%] flex items-left flex-col justify-center relative px-4 gap-2 bg-zinc-100">
+                        <div class="text-green-600">$ <%= product.price %></div>
+                        <div class="font-bold"><%= product.product_name %></div>
+                        <div><%= product.description %></div>
+                        <div class="flex w-full items-center justify-between">
+                            <button class="boton">+</button>
+                            <p class="producto">0</p>
+                            <button class="boton">-</button>
+                        </div>
+                    </div>
+                </div>
+            <% }) %>
+        </section>
+    
+    <section class="bg-zinc-200 overflow-y-auto h-full w-[30%] flex  flex-col items-center justify-center gap-4">
+
+            <div class="text-3xl">Precio : $<span class="precio">0</span></div>
+
+            <input type="text" placeholder="Nombre"  class="nombre w-[80%] h-[40px] rounded border p-2 outline-none hover:ring" required>
+            
+            <input type="text" placeholder="Direccion"  class="direccion w-[80%] h-[40px] rounded border p-2 outline-none hover:ring" required>
+            
+            <button class="whatsapp bg-[#25D366] rounded w-[80%] p-2 relative text-2xl text-[white] cursor-pointer"><p>Enviar</p><i class="fa fa-whatsapp absolute right-4 top-[50%] translate-y-[-50%]" aria-hidden="true"></i></button>
+        
+    </section>
+
+    
+    </div>
+
+
+    <script src="scripts/stars_animation.js">
+    </script>
+
+    <script src="scripts/productos.js"></script>
+
+</body>
+</html>
