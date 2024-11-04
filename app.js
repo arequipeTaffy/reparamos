@@ -6,7 +6,9 @@ import flash from 'express-flash';
 import session from 'express-session';
 import cookieParser from 'cookie-parser';
 import multer from 'multer';
+
 import { router } from './routes/root.js';
+
 import { rUsuario,
         crearUsuario,
         listarUsuarios,
@@ -17,10 +19,13 @@ import { rUsuario,
         creaProducto} from './dbF.js';
 
 import methodOverride from 'method-override';
+
 import { checkAuth,
         checkNotAuth,
         setUser } from './middleware.js';
+
 import passport from 'passport';
+
 import { initialize } from './passport-config.js';
 
 //Setting a few environment variables    
