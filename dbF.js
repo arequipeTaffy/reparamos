@@ -1,6 +1,6 @@
-import mysql from 'mysql2'
-import dotenv from 'dotenv'
-import bcrypt from 'bcrypt'
+import mysql from 'mysql2';
+import dotenv from 'dotenv';
+import bcrypt from 'bcrypt';
 
 dotenv.config();
 
@@ -10,7 +10,7 @@ const pool = mysql.createPool({
     user: process.env.MYSQL_USER,
     password: process.env.MYSQL_PASSWORD,
     database: process.env.MYSQL_DATABASE
-}).promise();3
+}).promise();
 
 export async function rUsuario(id){
     const [rows] = await pool.query(`SELECT * FROM users WHERE id = ?;`, [id]);
@@ -18,7 +18,7 @@ export async function rUsuario(id){
         return null;
     }
     return rows[0];
-}
+};
 
 export async function gUserEmail(email) {
     const [rows] = await pool.query(`SELECT * FROM users WHERE email = ?`, [email]);
@@ -27,7 +27,7 @@ export async function gUserEmail(email) {
     }
     return rows[0];
     
-}
+};
 
 export async function crearUsuario(username, password, email){
     const saltRounds = 10;
@@ -37,7 +37,7 @@ export async function crearUsuario(username, password, email){
     VALUES (?, ?, ?)`, [username, hashedPassword, email]);
     const id = resultado.insertId;
     return rUsuario(id);
-}
+};
 
 export async function cUserWithPrivileges(username, password, email) {
     const role = 'admin';
@@ -48,7 +48,7 @@ export async function cUserWithPrivileges(username, password, email) {
         VALUES (?, ?, ?, ?)`, [username, hashedPassword, email, role]);
     const id = resultado.insertId;
     return rUsuario(id);
-}
+};
 
 export async function getProduct(id) {
     const [rows] = await pool.query(`SELECT * FROM products WHERE id = ?;`, [id]);
@@ -57,7 +57,7 @@ export async function getProduct(id) {
     }
     return rows[0];
     
-}
+};
 
 export async function getProducts() {
     const [rows] = await pool.query(`SELECT * FROM products;`);
@@ -101,8 +101,8 @@ export async function cambiarContraseña(email, password, nPassword){
 
         return { success: 'Contraseña actualizada' };
         
-    } catch (error) {
-        return { error: error.message };
+    } catch (e) {
+        return { error: e.message };
     }    
 }
 
@@ -121,8 +121,8 @@ export async function eliminarUsuario(id) {
         await pool.query(`DELETE FROM users WHERE id = ?;`, [id]);
         return { success: `Usuario con id ${id} fue eliminado` };
 
-    } catch (error) {
-        return { error : error.message };
+    } catch (e) {
+        return { error : e.message };
     }
     
-}
+};
