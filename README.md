@@ -55,7 +55,8 @@ curl -b jarfile localhost:8899/users | cat -l json
 - `dbF.js`: Funciones Y Queries ⚙️
 
 ## 👀
-![App](https://youtu.be/1mRmCwn3icw)
+
+[Mini Guía](https://youtu.be/1mRmCwn3icw)
 ![App Preview](https://media.tenor.com/mJBBwXAZyTwAAAAi/repair-mechanics.gif)
 
 ---
