@@ -1,6 +1,6 @@
-import mysql from 'mysql2';
-import dotenv from 'dotenv';
-import bcrypt from 'bcrypt';
+import mysql from 'mysql2'
+import dotenv from 'dotenv'
+import bcrypt from 'bcrypt'
 
 dotenv.config();
 
@@ -10,7 +10,7 @@ const pool = mysql.createPool({
     user: process.env.MYSQL_USER,
     password: process.env.MYSQL_PASSWORD,
     database: process.env.MYSQL_DATABASE
-}).promise();
+}).promise();3
 
 export async function rUsuario(id){
     const [rows] = await pool.query(`SELECT * FROM users WHERE id = ?;`, [id]);
@@ -18,7 +18,7 @@ export async function rUsuario(id){
         return null;
     }
     return rows[0];
-};
+}
 
 export async function gUserEmail(email) {
     const [rows] = await pool.query(`SELECT * FROM users WHERE email = ?`, [email]);
@@ -27,17 +27,17 @@ export async function gUserEmail(email) {
     }
     return rows[0];
     
-};
+}
 
-export async function crearUsuario(username, password, email){
+export async function crearUsuario(username, password, email, path){
     const saltRounds = 10;
     const hashedPassword = await bcrypt.hash(password, saltRounds);
     const [resultado] = await pool.query(`
-    INSERT INTO users (name, password, email)
-    VALUES (?, ?, ?)`, [username, hashedPassword, email]);
+    INSERT INTO users (name, password, email, pfp)
+    VALUES (?, ?, ?, ?)`, [username, hashedPassword, email, path]);
     const id = resultado.insertId;
     return rUsuario(id);
-};
+}
 
 export async function cUserWithPrivileges(username, password, email) {
     const role = 'admin';
@@ -48,7 +48,7 @@ export async function cUserWithPrivileges(username, password, email) {
         VALUES (?, ?, ?, ?)`, [username, hashedPassword, email, role]);
     const id = resultado.insertId;
     return rUsuario(id);
-};
+}
 
 export async function getProduct(id) {
     const [rows] = await pool.query(`SELECT * FROM products WHERE id = ?;`, [id]);
@@ -57,7 +57,7 @@ export async function getProduct(id) {
     }
     return rows[0];
     
-};
+}
 
 export async function getProducts() {
     const [rows] = await pool.query(`SELECT * FROM products;`);
@@ -101,8 +101,8 @@ export async function cambiarContraseña(email, password, nPassword){
 
         return { success: 'Contraseña actualizada' };
         
-    } catch (e) {
-        return { error: e.message };
+    } catch (error) {
+        return { error: error.message };
     }    
 }
 
@@ -121,8 +121,54 @@ export async function eliminarUsuario(id) {
         await pool.query(`DELETE FROM users WHERE id = ?;`, [id]);
         return { success: `Usuario con id ${id} fue eliminado` };
 
-    } catch (e) {
-        return { error : e.message };
+    } catch (error) {
+        return { error : error.message };
     }
     
-};
+}
+
+export async function eliminarProducto(id) {
+    try {
+        const [rows] = await pool.query(`SELECT * FROM products WHERE id = ?`, [id]);
+        if(rows.length === 0){
+            throw new Error('No existe producto');
+        };
+
+        await pool.query(`DELETE FROM products WHERE id = ?;`, [id]);
+        return { success: `Producto con id ${id} fue eliminado` };
+
+    } catch (error) {
+        return { error : error.message };
+    }
+    
+}
+
+export async function updateUname(email, password, nName){
+    try {
+        const [rows] = await pool.query(`
+        SELECT * FROM users WHERE email = ?;`, [email]);
+        const id = rows.insertId;
+
+        if(rows.length === 0){
+            throw new Error('No existe usuario');
+        }
+        
+        const user = rows[0];
+        const passwordMatch = await bcrypt.compare(password, user.password);
+        
+        if(!passwordMatch){
+            throw new Error('Contraseña incorrecta');
+        }
+
+        await pool.query(`
+        UPDATE users
+        SET name = ?
+        WHERE email = ?
+        `, [nName, email]);
+
+        return { success: 'Nombre actualizada' };
+        
+    } catch (error) {
+        return { error: error.message };
+    }    
+}

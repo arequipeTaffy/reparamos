@@ -15,7 +15,7 @@
         <div class="flex w-[50%] items-center justify-around navbar relative">
             <div class=" hover:bg-gray-300 transition rounded px-[10px] py-[5px]"><a href="/">Inicio</a></div>
             <div class=" hover:bg-gray-300 transition rounded px-[10px] py-[5px]"><a href="/productos">Productos Y Servicios</a></div>
-            <div class=" hover:bg-gray-300 transition rounded px-[10px] py-[5px]"><a href="./miperfil.html">Mi perfil</a></div>
+            <div class=" hover:bg-gray-300 transition rounded px-[10px] py-[5px]"><a href="/perfil">Mi perfil</a></div>
             <a href="/login">
                 <div class="bg-black text-white rounded px-[10px] py-[5px]">INICIAR</div>
             </a>
@@ -23,11 +23,14 @@
     </div>
 
     <div class="h-[90vh] w-screen flex items-center justify-center">
-        <form class="flex items-between justify-center flex-col gap-8" action="/cuser" method="post">
+        <form class="flex items-between justify-center flex-col gap-8" action="/cuser" method="post" enctype="multipart/form-data">
             <label for="" class="text-[5vw]">REGISTRARSE</label>
             <input type="text" name="name" id="" placeholder="Nombre" class="h-[40px] rounded border p-2 outline-none hover:ring" required>
             <input type="email" name="email" id="" placeholder="Correo" class="h-[40px] rounded border p-2 outline-none hover:ring" required>
             <input type="password" name="password" id="" placeholder="Contraseña" class="h-[40px] rounded border p-2 outline-none hover:ring" required>
+            <input type="file" name="image" id="" class="text-gray-500 file:px-4 file:py-2 file:rounded file:border-none file:text-sm
+            file:font-semibold file:bg-slate-800 file:cursor-pointer file:border-black file:text-white"
+            accept="image/*">
             <input type="submit" value="Registrarse" class="bg-black rounded p-2 relative text-2xl text-[white] hover:text-2xl hover:ring cursor-pointer">
         </form>
     </div>

@@ -11,12 +11,14 @@
     <div class="navbar w-full  h-[10vh] px-[30px] flex items-center justify-between">
         <div class="text-3xl font-bold">REPARAMOS TECNOLOGIA</div>
         <%if (user && user.name) { %>
+        <div style="background-image: url('<%= user.pfp %>');"
+            class="w-[50px] h-[50px] bg-cover rounded-full"></div>
         <span class="text-xl font-bold"><%= user.name %></span>
         <%} %>
         <div class="flex w-[50%] items-center justify-around navbar relative">
             <div class=" hover:bg-gray-300 transition rounded px-[10px] py-[5px]"><a href="#footer">Contacto</a></div>
             <div class=" hover:bg-gray-300 transition rounded px-[10px] py-[5px]"><a href="/productos">Productos Y Servicios</a></div>
-            <div class=" hover:bg-gray-300 transition rounded px-[10px] py-[5px]"><a href="./miperfil.html">Mi perfil</a></div>
+            <div class=" hover:bg-gray-300 transition rounded px-[10px] py-[5px]"><a href="/perfil">Mi perfil</a></div>
             <% if (user) { %>
                 <form action="/logout?_method=DELETE" method="POST">
                     <button type="submit" class="bg-black text-white rounded px-[10px] py-[5px]">SALIR</button>

@@ -18,6 +18,14 @@ router.get('^/$|index(.html)?', (req, res) =>{
     res.render('index.ejs', { user : req.user });
 });
 
+router.get('/perfil', checkAuth, (req, res) =>{
+    console.log(req.user);
+    if (req.user) {
+        console.log(req.user.name);
+    };
+    res.render('miperfil.ejs', { user : req.user });
+});
+
 router.get('/login', checkNotAuth, (req, res) => {
     return res.render('Login.ejs');
 });
@@ -34,6 +42,16 @@ router.get('/productos', async (req, res) => {
     try {
         const products = await getProducts();
         res.render('productos.ejs', { products });
+      } catch (error) {
+        console.error('Error retrieving products:', error);
+        res.status(500).send('Error retrieving products');
+      }
+})
+
+router.get('/eliminar-p', checkAuth, async (req, res) => {
+    try {
+        const products = await getProducts();
+        res.render('eliminar.ejs', { products });
       } catch (error) {
         console.error('Error retrieving products:', error);
         res.status(500).send('Error retrieving products');

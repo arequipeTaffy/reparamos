@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Productos</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="estilos.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+<body>
+    <div class="navbar w-full h-[10vh] px-[30px] flex items-center justify-between">
+        <div class="text-3xl font-bold">REPARAMOS TECNOLOGIA</div>
+        <div class="flex w-[50%] items-center justify-around navbar relative">
+            <a href="/nuevoproducto">
+                <div class="bg-black text-white rounded px-[10px] py-[5px]">Nuevo Producto</div>
+            </a>
+            <div class="hover:bg-gray-300 transition rounded px-[10px] py-[5px]"><a href="/">Inicio</a></div>
+            <div class="hover:bg-gray-300 transition rounded px-[10px] py-[5px]"><a href="/">Contacto</a></div>
+            <div class="hover:bg-gray-300 transition rounded px-[10px] py-[5px]"><a href="/perfil">Mi perfil</a></div>
+        </div>
+    </div>
+
+    <script src="scripts/navbar.js"></script>
+
+    <div class="flex items-center justify-between h-[90vh]">
+        <section class="flex justify-left items-center flex-wrap px-[50px] py-[50px] gap-[30px] w-[100%] h-[100%] overflow-y-auto">
+            <% products.forEach(product => { %>
+                <div data-precio="<%= product.price %>" data-name="<%= product.product_name %>" data-id="<%= product.id %>" 
+                class="h-[400px] flex items-center flex-col justify-center border w-[250px] rounded sys relative">
+                    <button class="absolute top-2 right-2 text-red-600" onclick="deleteProduct('<%= product.id %>')">
+                        <i class="fa fa-times"></i>
+                    </button>
+                    
+                    <div class="bg-cover bg-top w-[100%] h-[100%]" style="background-image: url('<%= product.image %>');"></div>
+                    <div class="border w-[100%] h-[100%] flex items-left flex-col justify-center relative px-4 gap-2 bg-zinc-100">
+                        <div class="text-green-600">$ <%= product.price %></div>
+                        <div class="font-bold"><%= product.product_name %></div>
+                        <div><%= product.description %></div>
+                    </div>
+                </div>
+            <% }) %>
+        </section>
+    </div>
+
+    <script src="scripts/stars_animation.js"></script>
+    <script src="scripts/productos.js"></script>
+    <script>
+        function deleteProduct(productId) {
+
+            fetch(`/delete-product/${productId}`, {
+                method: 'DELETE',
+            })
+            .then(response => {
+                if (response.ok) {
+                    document.querySelector(`[data-id="${productId}"]`).remove();
+                    alert('Product deleted successfully');
+                } else {
+                    alert('Failed to delete product');
+                }
+            })
+            .catch(error => console.error('Error:', error));
+        }
+    </script>
+</body>
+</html>

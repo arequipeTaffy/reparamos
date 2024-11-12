@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mi perfil</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="estilos.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+</head>
+<body>
+    
+    <div class="navbar w-full  h-[10vh] px-[30px] flex items-center justify-between">
+        <div class="text-3xl font-bold">REPARAMOS TECNOLOGIA</div>
+        <div class="flex w-[50%] items-center justify-around navbar relative">
+            <div class=" hover:bg-gray-300 transition rounded px-[10px] py-[5px]"><a href="/">Contacto</a></div>
+            <div class=" hover:bg-gray-300 transition rounded px-[10px] py-[5px]"><a href="/productos">Productos Y Servicios</a></div>
+            <div class=" hover:bg-gray-300 transition rounded px-[10px] py-[5px]"><a href="/perfil">Mi perfil</a></div>
+            
+        </div>
+    </div>
+    <section class="flex justify-center items-center">
+        <div class="h-[90vh] w-[20vw] bg-zinc-300 relative">
+            
+            <div class="w-[100%] h-[50%] bg-zinc-100 flex items-center justify-center relative">
+                <div style="background-image: url('<%= user.pfp %>');"
+                    class="default w-full h-full bg-cover"></div>
+                
+                <i class="fa fa-pencil absolute bottom-[20px] right-[20px] text-2xl cursor-pointer hover:text-3xl duration-100" aria-hidden="true"></i>
+            </div>
+
+            <div class=" w-[100%] h-[60px] flex items-center justify-center font-bold text-2xl hover:bg-zinc-200 cursor-pointer">INFORMACION</div>
+            <form action="/logout?_method=DELETE" method="POST">
+                <button type="submit" class="">
+                <div class="absolute w-[100%] h-[60px] bg-black text-white flex items-center justify-center font-bold text-2xl
+                hover:bg-zinc-900 cursor-pointer bottom-0">Cerrar sesion</div></button>
+            </form>
+        
+        </div>
+
+        <form action="/up-name?_method=PUT" method="POST" class="h-[90vh] w-[80vw] overflow-auto bottom-[0] p-4 flex items-center flex-col gap-6">
+
+            <label class=" w-full flex items-center justify-center text-4xl">Bienvenido de nuevo</label>
+
+
+            <div class="flex items-center justify-between rounded py-6 px-10 bg-zinc-100 w-full font-extrabold text-xl">
+                <div>Nombre:</div>
+                    <input name="newName" type="text" class="bg-zinc-100 outline-none rounded w-full px-4" placeholder="<%= user.name %>">
+            </div>
+
+            <div class="flex items-center justify-between rounded py-6 px-10 bg-zinc-900 w-full font-extrabold text-xl text-white">
+                <div>Correo:</div>
+                    <input name="email" type="email" class="bg-zinc-900 outline-none rounded w-full px-4" placeholder="<%= user.email %>">
+            </div>
+
+            <div class="flex items-center justify-between rounded py-6 px-10 bg-zinc-100 w-full font-extrabold text-xl">
+                <div>Contraseña:</div>
+                    <input name="password" type="password" class="bg-zinc-100 outline-none rounded w-full px-4" placeholder="<%= user.password %>">
+            </div>
+            
+            <input type="submit" value="Enviar" class="bg-black rounded py-2  px-4 relative text-2xl text-[white] hover:text-2xl hover:ring cursor-pointer">
+
+
+        </form>
+    </section>
+</body>
+</html>

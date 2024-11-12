@@ -6,9 +6,7 @@ import flash from 'express-flash';
 import session from 'express-session';
 import cookieParser from 'cookie-parser';
 import multer from 'multer';
-
 import { router } from './routes/root.js';
-
 import { rUsuario,
         crearUsuario,
         listarUsuarios,
@@ -16,16 +14,15 @@ import { rUsuario,
         cambiarContraseña,
         gUserEmail,
         cUserWithPrivileges, 
-        creaProducto} from './dbF.js';
+        creaProducto,
+        eliminarProducto,
+        updateUname} from './dbF.js';
 
 import methodOverride from 'method-override';
-
 import { checkAuth,
         checkNotAuth,
         setUser } from './middleware.js';
-
 import passport from 'passport';
-
 import { initialize } from './passport-config.js';
 
 //Setting a few environment variables    
@@ -67,13 +64,23 @@ app.use(setUser);
 // Storage configuration for avatars
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {
-      cb(null, path.join(__dirname, 'public/uploads'));
+      cb(null, path.join(__dirname, 'public/uploads/'));
     },
     filename: function (req, file, cb) {
       cb(null, `product-${Date.now()}${path.extname(file.originalname)}`);
     }
-  })
+  });
+
+  const pfpS = multer.diskStorage({
+    destination: function (req, file, cb) {
+      cb(null, path.join(process.cwd(), 'public/uploads/pfp/'));
+    },
+    filename: function (req, file, cb) {
+      cb(null, `pfp-${Date.now()}${path.extname(file.originalname)}`);
+    }
+});  
   
+  const pfp = multer({ storage: pfpS });
   const upload = multer({ storage });
 
 //          Routes
@@ -117,20 +124,21 @@ app.post('/api/userwith', async (req, res) => {
 })
 
 //Create an user
-app.post('/cuser', checkNotAuth, async (req, res) => {
+app.post('/cuser', checkNotAuth, pfp.single('image'), async (req, res) => {
     try {
         const { name, password, email } = req.body;
-        const info = await crearUsuario(name, password, email);
+        const imagePath = `/uploads/pfp/${req.file.filename}`;
+        console.log(imagePath);
+        const info = await crearUsuario(name, password, email, imagePath);
         console.log(`Nuevo Registro:\n${JSON.stringify(info)}\nFrom ${req.ip}`);
         if (req.accepts('html')) {
-            //res.sendFile(path.join(__dirname, 'views', 'registroexitoso.ejs'));
             res.render('registroexitoso.ejs');
         } else {
             res.send(info);
         }
         
     } catch {
-        res.redirect('/signin');
+        res.redirect('/');
     }
 })
 
@@ -178,6 +186,21 @@ app.put('/upassword', checkAuth, async (req, res) => {
     return res.status(200).json({ message: result.success });
 });
 
+app.put('/up-name', checkAuth, async (req, res) => {
+    const { email, password, newName } = req.body;
+
+    if(!email || !password || !newName) {
+        return res.status(400).json({ error: 'Todos los campos son obligatorios' });
+    }
+
+    const result = await updateUname(email, password, newName);
+    if (result.error) {
+        return res.status(400).json({ error: result.error });
+    }
+
+    return res.redirect('/');
+});
+
 //Lougout
 app.delete('/logout', (req, res, next) => {
     req.logout(function(err) {
@@ -185,6 +208,20 @@ app.delete('/logout', (req, res, next) => {
       res.redirect('/');
     });
   });
+
+//Delete product by id
+app.delete('/delete-product/:id', checkAuth, async (req, res) => {
+    const id = req.params.id;
+    if(!id){
+        return res.status(400).json({ error: 'Inserte un ID'});
+    };
+    const result = await eliminarProducto(id);
+    if(result.error){
+        return res.status(400).json({ error: result.error});
+    }
+    console.log('A product was deleted');
+    return res.status(200).json( { message: result.success } );  
+});
 
 //Delete user by id
 app.delete('/duser', checkAuth, async (req, res) => {
